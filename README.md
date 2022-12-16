@@ -1,1 +1,1 @@
-# ThesisProject_MovieSearchService
+# ThesisProject_JobSearchService
