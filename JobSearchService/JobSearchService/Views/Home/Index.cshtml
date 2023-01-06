@@ -1,8 +1,28 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@model JobSearchService.Models.ApplicationUser
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (!SignInManager.IsSignedIn(User))
+{
+            <div class="text-center">
+                    <h3 class="display-3" style="margin-top: 40px">Welcome to Job Search Service</h3>
+                <div class="col-md-12">
+                    <dl class="row" style="margin-top:5px;">
+                        <dt class="col-md-6">
+                            <h3 style="font-size:40px;">
+                                            <a asp-area="Identity" asp-page="/Account/EmployerLogin" class="btn btn-dark" style="font-size:50px;">Employer Login</a>
+                            </h3>
+                        </dt>
+                        <dt class="col-md-6">
+                            <h3 style="font-size:40px;">
+                                    <a asp-area="Identity" asp-page="/Account/ApplicantLogin" class="btn btn-dark" style="font-size:50px;">Applicant Login</a>
+                            </h3>
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+}

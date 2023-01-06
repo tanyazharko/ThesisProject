@@ -1,0 +1,254 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model JobSearchService.Models.ApplicantJob
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Job Statuses</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        @if (Model.ApplicantJobs.Count > 0)
+        {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                            @Html.DisplayNameFor(model => model.Job.Position)
+                            </th>
+                            <th>
+                                Company Name
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.Job.Salary)
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.ApplicantJobs)
+                    {
+                                <tr>
+                                    <td>
+                                @Html.ActionLink(item.Job.Position, "Details", "Job", new { id = item.Job.Id }, new { area = "" })
+                                    </td>
+                                    <td>
+                                @Html.ActionLink(item.Job.Company.CompanyName, "Details", "Company", new { id = item.Job.Company.Id }, new { area = "" })
+                                    </td>
+                                    <td>
+                                @Html.DisplayFor(modelItem => item.Job.Salary)
+                                    </td>
+                            @if (item.IsAccepted == false && item.IsDeclined == false)
+                            {
+                                            <td style="color: gray">
+                                                Pending
+                                            </td>
+                            }
+                            @if (item.IsAccepted == true)
+                            {
+                                            <td style="color: green">
+                                                Accepted
+                                            </td>
+                            }
+                            @if (item.IsDeclined == true)
+                            {
+                                            <td style="color: red">
+                                                Declined
+                                            </td>
+                            }
+                            @*<td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
+                                </tr>
+                    }
+
+                    </tbody>
+                </table>
+        }
+        else
+        {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                            @Html.DisplayNameFor(model => model.Job.Position)
+                            </th>
+                            <th>
+                                Company Name
+                            </th>
+                            <th>
+                            @Html.DisplayNameFor(model => model.Job.Salary)
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.ApplicantJobs)
+                    {
+                                <tr>
+                                    <td>
+                                @Html.ActionLink(item.Job.Position, "Details", "Job", new { id = item.Job.Id }, new { area = "" })
+                                    </td>
+                                    <td>
+                                @Html.ActionLink(item.Job.Company.CompanyName, "Details", "Company", new { id = item.Job.Company.Id }, new { area = "" })
+                                    </td>
+                                    <td>
+                                @Html.DisplayFor(modelItem => item.Job.Salary)
+                                    </td>
+                            @if (item.IsAccepted == false && item.IsDeclined == false)
+                            {
+                                            <td>
+                                                Pending
+                                            </td>
+                            }
+                            @if (item.IsAccepted == true)
+                            {
+                                            <td>
+                                                Accepted
+                                            </td>
+                            }
+                            @if (item.IsDeclined == true)
+                            {
+                                            <td>
+                                                Declined
+                                            </td>
+                            }
+                            @*<td>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>*@
+                                </tr>
+                    }
+
+                    </tbody>
+                </table>
+                <div>
+                    <p>There are currently no jobs to display.</p>
+                    <p>You can search for a job by clicking the link above.</p>
+                </div>
+        }
+
+    </div>
+
+    <div class="col-md-4"  style="margin-top: -75px;">
+        <div>
+
+            <div>
+                <h2 style="margin-top: 25px">
+                    @Html.DisplayFor(modelItem => Model.ApplicationUser.FirstName) @Html.DisplayFor(modelItem => Model.ApplicationUser.LastName)
+                </h2>
+            </div>
+
+            @if (Model.ApplicationUser.LocationId == null)
+            {
+                    <div>
+                        <h5>Location: </h5> <p>Add your location here!</p>
+                    </div>
+            }
+            else
+            {
+                    <div>
+                        <h5>Location: </h5> @Html.DisplayFor(modelItem => Model.ApplicationUser.Location.Name)
+                    </div>
+            }
+
+            @if (Model.Applicant.Email == null)
+            {
+                    <div>
+                        <h5>Email: </h5> <p>Add your email here!</p>
+                    </div>
+            }
+            else
+            {
+                    <div>
+                        <h5>Email:</h5> <a href="mailto:@Html.DisplayFor(modelItem => Model.Applicant.Email)" class="contactText"> @Html.DisplayFor(modelItem => Model.Applicant.Email)</a>
+                    </div>
+            }
+
+            @if (Model.Applicant.SocialLink == null)
+            {
+                    <div>
+                        <h5>Social Link</h5> <p>Add a social link here!</p>
+                    </div>
+            }
+            else
+            {
+                    <div>
+                        <h5>Social Link</h5> <a href="http://@Html.DisplayFor(modelItem => Model.Applicant.SocialLink)" class="contactText">@Html.DisplayFor(modelItem => Model.Applicant.SocialLink)</a>
+                    </div>
+            }
+
+
+            @if (Model.Applicant.Education == null)
+            {
+                    <h5>Education</h5>
+                    <div>
+                        <p>Add your Education here!</p>
+                    </div>
+            }
+            else
+            {
+                    <h5>Education</h5>
+                    <div>
+                    @Html.DisplayFor(modelItem => Model.Applicant.Education)
+                    </div>
+            }
+
+            @if (Model.Applicant.Experience == null)
+            {
+                    <h5>Experience</h5>
+                    <div>
+                        <p>Add your Experience here!</p>
+                    </div>
+            }
+            else
+            {
+                    <h5>Experience</h5>
+                    <div>
+                    @Html.DisplayFor(modelItem => Model.Applicant.Experience)
+                    </div>
+            }
+
+            @if (Model.Applicant.SkillsAndCertifications == null)
+            {
+                    <h5>Skills and Certifications</h5>
+                    <div>
+                        <p>Add your Skills and Certifications here!</p>
+                    </div>
+            }
+            else
+            {
+                    <h5>Skills and Certifications</h5>
+                    <div>
+                    @Html.DisplayFor(modelItem => Model.Applicant.SkillsAndCertifications)
+                    </div>
+            }
+
+            @if (Model.Applicant.ResumeLink == null)
+            {
+                    <h5>Resume Link:</h5>
+                    <div>
+                        <p>Add your Resume here!</p>
+                    </div>
+            }
+            else
+            {
+                    <h5>Resume Link:</h5>
+                    <div>
+                            <a href="images/@Html.DisplayFor(modelItem => Model.Applicant.ResumeLink)"
+                       target="_blank"
+                       title="resume"
+                       class="special">Resume</a>
+
+                    </div>
+            }
+        </div>
+    </div>
+</div>

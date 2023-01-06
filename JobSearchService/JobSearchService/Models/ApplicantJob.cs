@@ -9,5 +9,8 @@
         public Job Job { get; set; }
         public bool IsAccepted { get; set; }
         public bool IsDeclined { get; set; }
+        public List<ApplicantJob> ApplicantJobs { get; set; }
+        public List<Job> Jobs { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
