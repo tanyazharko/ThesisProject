@@ -18,7 +18,6 @@ namespace JobSearchService.Controllers
             _userManager = userManager;
         }
 
-        // GET: Applicant
         public async Task<IActionResult> Index()
         {
             ApplicationUser user = await GetCurrentUserAsync();
@@ -38,21 +37,16 @@ namespace JobSearchService.Controllers
             return View(applicantJob);
         }
 
-        // GET: Applicant/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Applicant/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(int id)
         {
             try
             {
-                // TODO: Add insert logic here
-
                 var user = await GetCurrentUserAsync();
 
                 var jobApplication = new ApplicantJob
