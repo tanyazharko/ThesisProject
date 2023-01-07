@@ -21,5 +21,6 @@ namespace JobSearchService.Models
         public int? ApplicantId { get; set; }
         public Applicant Applicant { get; set; }
         public bool IsEmployer { get; set; }
+        public IFormFile ResumeFile { get; set; }
     }
 }
