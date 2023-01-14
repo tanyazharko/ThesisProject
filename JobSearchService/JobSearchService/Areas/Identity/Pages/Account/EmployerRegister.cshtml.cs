@@ -23,18 +23,14 @@ namespace JobSearchService.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class EmployerRegisterModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationProfile> _signInManager;
+        private readonly UserManager<ApplicationProfile> _userManager;
         private readonly ILogger<EmployerRegisterModel> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IEmailSender _emailSender;
 
-        public EmployerRegisterModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<EmployerRegisterModel> logger,
-            ApplicationDbContext context,
-            IEmailSender emailSender)
+        public EmployerRegisterModel( UserManager<ApplicationProfile> userManager,SignInManager<ApplicationProfile> signInManager,ILogger<EmployerRegisterModel> logger,
+            ApplicationDbContext context,IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -66,6 +62,10 @@ namespace JobSearchService.Areas.Identity.Pages.Account
             public string CompanyName { get; set; }
 
             [Required]
+            [Display(Name = "Location")]
+            public int LocationId { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -81,38 +81,34 @@ namespace JobSearchService.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
-
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string? returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            var locationOptions = await _context.Location.Select(l => new SelectListItem()
-            {
-                Text = l.Name,
-                Value = l.Id.ToString()
-            }).ToListAsync();
-
-            LocationOptions = locationOptions;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/Employer");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
-                var company = new Company { CompanyName = Input.CompanyName};
+                var company = new Company { CompanyName = Input.CompanyName, LocationId = Input.LocationId };
+
                 _context.Add(company);
                 await _context.SaveChangesAsync();
-                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.Email, Email = Input.Email, IsEmployer = true, CompanyId = company.Id, EmailConfirmed = true };
+
+                var user = new ApplicationProfile { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.Email, Email = Input.Email, IsEmployer = true, CompanyId = company.Id, EmailConfirmed = true };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -137,8 +133,6 @@ namespace JobSearchService.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

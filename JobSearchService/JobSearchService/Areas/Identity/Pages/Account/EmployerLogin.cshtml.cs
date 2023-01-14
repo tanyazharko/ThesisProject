@@ -19,15 +19,12 @@ namespace JobSearchService.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class EmployerLoginModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationProfile> _userManager;
+        private readonly SignInManager<ApplicationProfile> _signInManager;
         private readonly ILogger<EmployerLoginModel> _logger;
         private readonly ApplicationDbContext _context;
 
-        public EmployerLoginModel(SignInManager<ApplicationUser> signInManager,
-            ILogger<EmployerLoginModel> logger,
-            UserManager<ApplicationUser> userManager,
-            JobSearchService.Data.ApplicationDbContext context)
+        public EmployerLoginModel(SignInManager<ApplicationProfile> signInManager,ILogger<EmployerLoginModel> logger, UserManager<ApplicationProfile> userManager,ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -59,7 +56,7 @@ namespace JobSearchService.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string? returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -68,7 +65,6 @@ namespace JobSearchService.Areas.Identity.Pages.Account
 
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -76,14 +72,12 @@ namespace JobSearchService.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/Employer");
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var user = await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Email == Input.Email && u.IsEmployer == true);
                 if (user == null)
                 {
@@ -111,8 +105,6 @@ namespace JobSearchService.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

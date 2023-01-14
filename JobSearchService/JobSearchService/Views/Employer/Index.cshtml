@@ -1,0 +1,78 @@
+﻿@model CompanyJobView
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="col-md-8" style="padding: 0"> Job Posts</h1>
+
+<div class="col-md-8" style="margin-left: -15px">
+    <a asp-controller="Job" asp-action="Create">Create a New Job Post</a>
+ </div>
+<div class="row">
+    <div class="col-md-8">
+        @if (Model.Jobs.Count > 0)
+        {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Position
+                                </th>
+                                <th>
+                                    Salary
+                                </th>
+                                <th>
+                                    Emplyment Type
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    No. of Applicants
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    @foreach (var item in Model.Jobs)
+                    {
+                                        <tr>
+                                            <td>
+                                @Html.ActionLink(item.Position, "Info", "Job", new { id = item.JobId }, new { area = "" })
+                                            </td>
+                                            <td>
+                                @Html.DisplayFor(modelItem => item.Salary)
+                                            </td>
+                                            <td>
+                                @Html.DisplayFor(modelItem => item.EmploymentTypeName)
+                                            </td>
+                                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                                            </td>
+
+                                        </tr>
+                    }
+                        </tbody>
+                    </table>
+        }
+    </div>
+
+    <div class="col-md-4" style="margin-top: -75px">
+        <div>
+
+            <div>
+                <h2>@Html.DisplayFor(modelItem => Model.Company.CompanyName)</h2>
+            </div>
+            <div>
+                <p>
+                    <a asp-controller="Company" asp-action="Edit">Edit Company Info</a>
+                </p>
+            </div>
+
+            <div>
+                <h5>Location: </h5> @Html.DisplayFor(modelItem => Model.Company.Location.Name)
+            </div>
+  </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@model ApplicantPersonalInfoView
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit personal info</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ApplicationProfile.Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationProfile.FirstName" class="control-label"></label>
+                <input asp-for="ApplicationProfile.FirstName" class="form-control" />
+                <span asp-validation-for="ApplicationProfile.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationProfile.LastName" class="control-label"></label>
+                <input asp-for="ApplicationProfile.LastName" class="form-control" />
+                <span asp-validation-for="ApplicationProfile.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+        <label asp-for="ApplicationProfile.LocationId" class="control-label">Location</label>
+        <select asp-for="ApplicationProfile.LocationId" class="form-control" asp-items="@Model.LocationOptions">
+            <option value="" hidden>Please make a selection</option>
+        </select>
+        <span asp-validation-for="ApplicationProfile.LocationId" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+                <label asp-for="Applicant.Email" class="control-label"></label>
+                <input asp-for="Applicant.Email" class="form-control" />
+                <span asp-validation-for="Applicant.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Applicant.SocialLink" class="control-label">Social Link</label>
+                <input asp-for="Applicant.SocialLink" class="form-control" />
+                <span asp-validation-for="Applicant.SocialLink" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Applicant.Education" class="control-label"></label>
+                <input asp-for="Applicant.Education" class="form-control" />
+                <span asp-validation-for="Applicant.Education" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Applicant.Phone" class="control-label"></label>
+                <input asp-for="Applicant.Phone" class="form-control" />
+                <span asp-validation-for="Applicant.Phone" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="Applicant.Languages" class="control-label"></label>
+                <input asp-for="Applicant.Languages" class="form-control" />
+                <span asp-validation-for="Applicant.Languages" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Applicant.Experience" class="control-label"></label>
+                <input asp-for="Applicant.Experience" class="form-control" />
+                <span asp-validation-for="Applicant.Experience" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Applicant.HardSkills" class="control-label">Skills</label>
+                <input asp-for="Applicant.HardSkills" class="form-control" />
+                <span asp-validation-for="Applicant.HardSkills" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Applicant.Certifications" class="control-label">Certifications</label>
+                <input asp-for="Applicant.Certifications" class="form-control" />
+                <span asp-validation-for="Applicant.Certifications" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeFile" class="control-label">Upload your Resume </label>
+                <input asp-for="ResumeFile" class="form-control" type="file" />
+                <span asp-validation-for="ResumeFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-dark">Back to Home</a>
+</div>

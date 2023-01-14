@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model JobSearchService.Models.Job
+@inject UserManager<ApplicationProfile> UserManager
+
+@{
+    ViewData["Title"] = "Info";
+}
+
+<h1>@Html.DisplayFor(model => model.Position)</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <div></div>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+        <dt class="col-sm-3">
+            Company Name
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Company.CompanyName)
+        </dd>
+        <dt class="col-sm-3">
+            Category
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.JobCategory.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+        <dt class="col-sm-3">
+            Employment Type
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.EmploymentType.Name)
+        </dd>
+    </dl>
+</div>
+
+    @if (UserManager.GetUserAsync(User).Result.IsEmployer == true)
+    {
+                <div>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-secondary btn-sm text-dark" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn btn-secondary btn-sm text-dark" }) |
+                    <a asp-controller="Employer" asp-action="Index" class="btn btn-secondary btn-sm text-dark">Back to List</a>
+                </div>
+    }
+    @if (UserManager.GetUserAsync(User).Result.IsEmployer == false)
+    {
+                <a asp-controller="Applicant" asp-action="Index" class="btn btn-secondary btn-sm text-dark">Back to List</a>
+    }
+    </div>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<JobSearchService.Models.Job>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Job Search</h1>
+
+<div class="col-md-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th>
+                    Emplyment Type
+                </th>
+                <th>
+                    Category
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                        @Html.ActionLink(item.Position, "Info", "Job", new { id = item.Id }, new { area = "" })
+                        </td>
+                        <td>
+                        @Html.ActionLink(item.Company.CompanyName, "Info", "Company", new { id = item.Company.Id }, new { area = "" })
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.EmploymentType.Name)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.JobCategory.Name)
+                        </td>
+                                     </tr>
+            }
+        </tbody>
+    </table>
+</div>

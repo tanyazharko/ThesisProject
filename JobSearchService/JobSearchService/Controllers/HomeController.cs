@@ -10,10 +10,10 @@ namespace JobSearchService.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        private readonly UserManager<ApplicationProfile> _userManager;
+        private Task<ApplicationProfile> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<ApplicationProfile> userManager)
         {
             _logger = logger;
             _context = context;
@@ -22,18 +22,22 @@ namespace JobSearchService.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await GetCurrentUserAsync();
+
             if (user == null)
             {
                 return View(user);
             }
+
             if (user.IsEmployer == true)
             {
                 return RedirectToAction("Index", "Employer");
             }
+
             if (user.IsEmployer == false)
             {
                 return RedirectToAction("Index", "Applicant");
             }
+
             return View(user);
         }
 

@@ -1,8 +1,8 @@
 ﻿namespace JobSearchService.Models
 {
-    public class Location
+    public class Positionlevel
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string? Level { get; set; }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model JobSearchService.Models.Company
+
+@{
+    ViewData["Title"] = "Info";
+}
+
+<h1 style="margin-top: 5px">@Html.DisplayFor(model => model.CompanyName)</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Location
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-controller="Applicant" asp-action="Index" class="btn btn-secondary btn-sm text-dark">Back to List</a>
+</div>
