@@ -1,1 +1,1 @@
-# ThesisProject
+# Thesis Project
