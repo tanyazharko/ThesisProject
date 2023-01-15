@@ -23,14 +23,33 @@ namespace JobSearchService.Controllers
             _logger= logger;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string positionSearchString, string companySearchString, string categorySearchString, string locationSearchString)
         {
             var user = await GetCurrentUserAsync();
-            var jobs = from j in _context.Job.Include(c => c.Company).ThenInclude(l => l.Location).Include(et => et.EmploymentType).Include(ca => ca.JobCategory)  select j;
+            var jobs = from j in _context.Job.Include(c => c.Company).ThenInclude(l => l.Location).Include(et => et.EmploymentType).Include(ca => ca.JobCategory) select j;
+
+            if (!string.IsNullOrEmpty(positionSearchString))
+            {
+                jobs = jobs.Where(s => s.Position.Contains(positionSearchString));
+            }
+
+            if (!string.IsNullOrEmpty(companySearchString))
+            {
+                jobs = jobs.Where(s => s.Company.CompanyName.Contains(companySearchString));
+            }
+
+            if (!string.IsNullOrEmpty(categorySearchString))
+            {
+                jobs = jobs.Where(s => s.JobCategory.Name.Contains(categorySearchString));
+            }
+
+            if (!string.IsNullOrEmpty(locationSearchString))
+            {
+                jobs = jobs.Where(s => s.Company.Location.Name.Contains(locationSearchString));
+            }
 
             return View(await jobs.ToListAsync());
         }
-
         public async Task<ActionResult> Create()
         {
             var view = new JobEmploymentTypeView();
