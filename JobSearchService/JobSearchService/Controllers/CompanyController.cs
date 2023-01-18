@@ -4,45 +4,31 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using JobSearchService.Models.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using JobSearchService.Models.ViewModel;
 
 namespace JobSearchService.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationProfile> _userManager;
-        private Task<ApplicationProfile> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        private readonly ICompany _company;
 
-        public CompanyController(ApplicationDbContext context, UserManager<ApplicationProfile> userManager)
+        public CompanyController(ICompany company)
         {
-            _context = context;
-            _userManager = userManager;
+            _company = company;
         }
 
         public async Task<ActionResult> Info(int id)
         {
-            var company = await _context.Company.Include(l => l.Location).FirstOrDefaultAsync(c => c.Id == id);
-
-            return View(company);
+            return View(await _company.Info(id));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var user = await GetCurrentUserAsync();
-            var view = new EmployerCompanyView();
+            EmployerCompanyView view = await _company.Edit(id);
 
-            var company = await _context.Company.FirstOrDefaultAsync(c => c.Id == user.CompanyId);
-
-            var locationOptions = await _context.Location.Select(l => new SelectListItem()
-            {
-                Text = l.Name,
-                Value = l.Id.ToString()
-            }).ToListAsync();
-
-            view.Company = company;
-            view.LocationOptions = locationOptions;
-
-            if (company == null || view == null)
+            if (view == null)
             {
                 return NotFound();
             }
@@ -55,15 +41,7 @@ namespace JobSearchService.Controllers
         {
             try
             {
-                var companyInfo = new Company()
-                {
-                    Id = company.Id,
-                    CompanyName = company.CompanyName,
-                    LocationId = company.LocationId,
-                };
-
-                _context.Company.Update(company);
-                await _context.SaveChangesAsync();
+                await _company.Edit(id, company);
             }
             catch (DbUpdateConcurrencyException)
             {

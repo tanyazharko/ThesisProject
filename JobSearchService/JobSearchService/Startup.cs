@@ -1,5 +1,7 @@
 ﻿using JobSearchService.Data;
 using JobSearchService.Models;
+using JobSearchService.Models.Interfaces;
+using JobSearchService.Models.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +23,13 @@ namespace JobSearchService
 
             services.AddDefaultIdentity<ApplicationProfile>(options => options.SignIn.RequireConfirmedAccount = false)
                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddHttpContextAccessor();
+
+            services.AddScoped <IApplicant, ApplicantService>();
+            services.AddScoped<ICompany, CompanyService>();
+            services.AddScoped<IEmployer, EmployerService>();
+            services.AddScoped<IJob, JobService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
