@@ -13,10 +13,10 @@ namespace JobSearchService.Models.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationProfile> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly Microsoft.AspNetCore.Http.IHttpContextAccessor _httpContextAccessor;
         private Task<ApplicationProfile> GetCurrentUserAsync() => _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
 
-        public ApplicantService(ApplicationDbContext context, UserManager<ApplicationProfile> userManager, IHttpContextAccessor httpContextAccessor)
+        public ApplicantService(ApplicationDbContext context, UserManager<ApplicationProfile> userManager, Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _context = context;

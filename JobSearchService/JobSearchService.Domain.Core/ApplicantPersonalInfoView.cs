@@ -10,6 +10,6 @@ namespace JobSearchService.Models.ViewModel
         public ApplicationProfile ApplicationProfile { get; set; }
         public int? LocationId { get; set; }
         public List<SelectListItem> LocationOptions { get; set; }
-        public IFormFile ResumeFile { get; set; }
+        public Microsoft.AspNetCore.Http.IFormFile ResumeFile { get; set; }
     }
 }

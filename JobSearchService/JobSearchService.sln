@@ -5,7 +5,17 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobSearchService", "JobSearchService\JobSearchService.csproj", "{C032A636-E65D-49CD-A43F-6933DD8488C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchServiceTests", "JobSearchServiceTests\JobSearchServiceTests.csproj", "{0AC21E62-67E8-4683-94A5-68293092A066}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobSearchServiceTests", "JobSearchServiceTests\JobSearchServiceTests.csproj", "{0AC21E62-67E8-4683-94A5-68293092A066}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{2A8ED6C9-5778-4450-9E05-C2343D77F9EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchService.Domain.Core", "JobSearchService.Domain.Core\JobSearchService.Domain.Core.csproj", "{72EF5C3C-D911-46A2-BE1A-033BEF802388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchService.Domain.Interfaces", "JobSearchService.Domain.Interfaces\JobSearchService.Domain.Interfaces.csproj", "{CC273991-D4A9-4451-AFC3-AD89A1F5C595}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D1B98F3E-EBEC-4CCE-BCCC-3E25B9B79594}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchService.Infrastructure.Data", "JobSearchService.Infrastructure.Data\JobSearchService.Infrastructure.Data.csproj", "{816B8EA7-4548-48B3-BDF9-0D7A3FAABCBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +31,26 @@ Global
 		{0AC21E62-67E8-4683-94A5-68293092A066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AC21E62-67E8-4683-94A5-68293092A066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC21E62-67E8-4683-94A5-68293092A066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72EF5C3C-D911-46A2-BE1A-033BEF802388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72EF5C3C-D911-46A2-BE1A-033BEF802388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72EF5C3C-D911-46A2-BE1A-033BEF802388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72EF5C3C-D911-46A2-BE1A-033BEF802388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC273991-D4A9-4451-AFC3-AD89A1F5C595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC273991-D4A9-4451-AFC3-AD89A1F5C595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC273991-D4A9-4451-AFC3-AD89A1F5C595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC273991-D4A9-4451-AFC3-AD89A1F5C595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{816B8EA7-4548-48B3-BDF9-0D7A3FAABCBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816B8EA7-4548-48B3-BDF9-0D7A3FAABCBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{816B8EA7-4548-48B3-BDF9-0D7A3FAABCBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{816B8EA7-4548-48B3-BDF9-0D7A3FAABCBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72EF5C3C-D911-46A2-BE1A-033BEF802388} = {2A8ED6C9-5778-4450-9E05-C2343D77F9EF}
+		{CC273991-D4A9-4451-AFC3-AD89A1F5C595} = {2A8ED6C9-5778-4450-9E05-C2343D77F9EF}
+		{816B8EA7-4548-48B3-BDF9-0D7A3FAABCBA} = {D1B98F3E-EBEC-4CCE-BCCC-3E25B9B79594}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCD6B39D-8081-402F-AFC1-5967C66B185A}
