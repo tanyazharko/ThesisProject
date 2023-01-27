@@ -1,5 +1,4 @@
-﻿using JobSearchService.Data;
-using JobSearchService.Models;
+﻿using JobSearchService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

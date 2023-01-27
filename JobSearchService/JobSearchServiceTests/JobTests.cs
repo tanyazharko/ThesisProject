@@ -1,9 +1,9 @@
 using Xunit;
-using JobSearchService.Models;
+using JobSearchService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using JobSearchService.Models.ViewModel;
+using JobSearchService;
 
 namespace JobSearchServiceTests
 {

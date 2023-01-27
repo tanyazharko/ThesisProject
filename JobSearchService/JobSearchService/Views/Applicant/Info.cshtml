@@ -1,0 +1,181 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model JobSearchService.ApplicantJobView
+@inject UserManager<ApplicationProfile> UserManager
+
+@{
+    ViewData["Title"] = "Info";
+}
+
+<h1>@Html.DisplayFor(model => model.ApplicationProfile.FirstName) @Html.DisplayFor(model => model.ApplicationProfile.LastName)</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            First Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Applicant.ApplicationProfile.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            Last Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Applicant.ApplicationProfile.LastName)
+        </dd>
+        @if (Model.Applicant.ApplicationProfile.LocationId == null)
+        {
+                <dt class="col-sm-2">
+                    Location:
+                </dt>
+                <dd class="col-sm-10">
+                    Add your location here!
+                </dd>
+        }
+        else
+        {
+                <dt class="col-sm-2">
+                    Location:
+                </dt>
+                <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Applicant.ApplicationProfile.Location.Name)
+                </dd>
+        }
+
+        @if (Model.Applicant.Email == null)
+        {
+                <dt class="col-sm-2">
+                    Email:
+                </dt>
+                <dd class="col-sm-10">
+                    <p>Add your email here!</p>
+                </dd>
+        }
+        else
+        {
+                <dt class="col-sm-2">
+                    Email:
+                </dt>
+                <dd class="col-sm-10">
+                    <a href="mailto:@Html.DisplayFor(modelItem => Model.Applicant.Email)" class="contactText"> @Html.DisplayFor(modelItem => Model.Applicant.Email)</a>
+                </dd>
+        }
+        @if (Model.Applicant.SocialLink == null)
+        {
+
+                <dt class="col-sm-2">
+                    Social Link
+                </dt>
+
+                <dd class="col-sm-10">
+                    No social link provided
+                </dd>
+
+        }
+        else
+        {
+
+                <dt class="col-sm-2">
+                    Social Link
+                </dt>
+
+                <dd class="col-sm-10">
+                    <a href="http://@Html.DisplayFor(modelItem => Model.Applicant.SocialLink)" class="contactText">@Html.DisplayFor(modelItem => Model.Applicant.SocialLink)</a>
+                </dd>
+
+        }
+        @if (Model.Applicant.Education == null)
+        {
+                <dt class="col-sm-2">
+                    Education
+                </dt>
+
+                <dd class="col-sm-10">
+                    No education provided
+                </dd>
+
+        }
+        else
+        {
+                <dt class="col-sm-2">
+                    Education
+                </dt>
+                <dd class="col-sm-10">
+
+                @Html.DisplayFor(modelItem => Model.Applicant.Education)
+                </dd>
+
+        }
+        @if (Model.Applicant.Experience == null)
+        {
+                <dt class="col-sm-2">
+                    Experience
+                </dt>
+                <dd class="col-sm-10">
+                    No experience provided
+                </dd>
+        }
+        else
+        {
+                <dt class="col-sm-2">
+                    Experience
+                </dt>
+                <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Applicant.Experience)
+                </dd>
+        }
+        @if (Model.Applicant.HardSkills == null)
+        {
+                <dt class="col-sm-2">
+                       HardSkills
+                </dt>
+
+                <dd class="col-sm-10">
+                        No HardSkills provided
+                </dd>
+
+        }
+        else
+        {
+                <dt class="col-sm-2">
+                       HardSkills
+                </dt>
+                <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Applicant.HardSkills)
+                </dd>
+        }
+        @if (Model.Applicant.ResumeLink == null)
+        {
+                <dt class="col-sm-2">
+                    Resume Link:
+                </dt>
+
+                <dd class="col-sm-10">
+                    No resume provided
+                </dd>
+        }
+        else
+        {
+                <dt class="col-sm-2">
+                    Resume Link:
+                </dt>
+                <dd class="col-sm-10">
+                        <a href="~/images/@Html.DisplayFor(modelItem => Model.Applicant.ResumeLink)"
+                   target="_blank"
+                   title="resume"
+                   class="special">Resume</a>
+                </dd>
+        }
+    </dl>
+</div>
+
+    <div>
+    @if (UserManager.GetUserAsync(User).Result.IsEmployer == true)
+    {
+                <a asp-controller="Employer" asp-action="Index" class="btn btn-secondary btn-sm text-dark">Back to List</a>
+    }
+    @if (UserManager.GetUserAsync(User).Result.IsEmployer == false)
+    {
+                <a asp-controller="Applicant" asp-action="Index" class="btn btn-secondary btn-sm text-dark">Back to List</a>
+    }
+    </div>

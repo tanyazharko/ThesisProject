@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace JobSearchService.Models
+namespace JobSearchService
 {
     public class ApplicationProfile : IdentityUser
     {

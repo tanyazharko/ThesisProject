@@ -1,5 +1,5 @@
-﻿namespace JobSearchService.Models
-{
+﻿namespace JobSearchService
+{ 
     public class ApplicantJob
     {
         public int Id { get; set; }

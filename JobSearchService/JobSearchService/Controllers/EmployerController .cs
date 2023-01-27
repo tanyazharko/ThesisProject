@@ -1,6 +1,5 @@
-﻿using JobSearchService.Data;
+﻿using JobSearchService;
 using JobSearchService.Models;
-using JobSearchService.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

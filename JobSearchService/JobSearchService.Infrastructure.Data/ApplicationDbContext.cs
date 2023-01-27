@@ -1,9 +1,9 @@
-﻿using JobSearchService.Models;
+﻿using JobSearchService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobSearchService.Data
+namespace JobSearchService
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationProfile>
     {

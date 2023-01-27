@@ -1,7 +1,6 @@
-﻿using JobSearchService.Data;
-using JobSearchService.Models.Interfaces;
-using JobSearchService.Models.ViewModel;
+﻿using JobSearchService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace JobSearchService.Controllers
 {
@@ -29,6 +28,25 @@ namespace JobSearchService.Controllers
             }
 
             return View(view);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(int id)
+        {
+            try
+            {
+                await _applicant.Create(id);
+
+                return RedirectToAction("Index", "Applicant");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        public async Task<IActionResult> Info(int id, int JobId)
+        {
+            return View(await _applicant.Info(id, JobId));
         }
 
         [HttpPost]

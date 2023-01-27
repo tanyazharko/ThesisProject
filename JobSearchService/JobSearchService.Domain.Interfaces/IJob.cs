@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JobSearchService.Models.ViewModel;
 
-namespace JobSearchService.Models.Interfaces
+namespace JobSearchService
 {
     public interface IJob
     {

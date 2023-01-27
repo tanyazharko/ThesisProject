@@ -1,11 +1,10 @@
-﻿using JobSearchService.Data;
-using JobSearchService.Models.Interfaces;
-using JobSearchService.Models.ViewModel;
+﻿using JobSearchService;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobSearchService.Models.Services
+namespace JobSearchService
 {
     public class JobService : IJob
     {
@@ -21,11 +20,6 @@ namespace JobSearchService.Models.Services
             _userManager = userManager;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
-        }
-
-        public JobService(ApplicationDbContext context)
-        {
-            this.context = context;
         }
 
         public async Task<JobEmploymentTypeView> Create()

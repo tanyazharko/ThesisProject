@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace JobSearchService.Models
+namespace JobSearchService
 {
     public class Company
     {

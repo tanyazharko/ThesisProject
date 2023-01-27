@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using JobSearchService.Models;
-using JobSearchService.Data;
+using JobSearchService;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobSearchService.Areas.Identity.Pages.Account

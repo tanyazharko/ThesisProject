@@ -1,4 +1,4 @@
-﻿namespace JobSearchService.Models.ViewModel
+﻿namespace JobSearchService
 {
     public class ApplicantJobView
     {

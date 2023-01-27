@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model JobSearchService.Models.Job
+@model JobSearchService.Job
 @inject UserManager<ApplicationProfile> UserManager
 
 @{
@@ -49,8 +49,30 @@
             @Html.DisplayFor(model => model.EmploymentType.Name)
         </dd>
     </dl>
+    @if (UserManager.GetUserAsync(User).Result.IsEmployer == false)
+    {
+            <form asp-controller="Applicant" asp-action="Create" asp-route-id="@Model.Id">
+                <input type="hidden" />
+                <input type="submit" value="Apply!" class="btn btn-success"  style="margin-bottom: 15px"/>
+            </form>
+    }
 </div>
-
+@if (UserManager.GetUserAsync(User).Result.IsEmployer == true)
+{
+        <div class="col-md-6" style="margin-left: -15px">
+            <h4>Applicants (@Model.ApplicantJobs.Count())</h4>
+            <hr />
+            <dl class="row" style="margin-left: 0px">
+            @foreach (var item in Model.ApplicantJobs)
+            {
+                        <dd class="col-sm-10">
+                                    <li>@Html.ActionLink(item.Applicant.ApplicationProfile.FirstName + " " + item.Applicant.ApplicationProfile.LastName, "Info", "Applicant", new { id = item.Applicant.Id, JobId = Model.Id }, new { area = "" })</li>
+                        </dd>
+            }
+            </dl>
+        </div>
+}
+    <div>
     @if (UserManager.GetUserAsync(User).Result.IsEmployer == true)
     {
                 <div>

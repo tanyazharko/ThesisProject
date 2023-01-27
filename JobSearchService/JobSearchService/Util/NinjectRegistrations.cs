@@ -1,5 +1,4 @@
-﻿using JobSearchService.Models.Interfaces;
-using JobSearchService.Models.Services;
+﻿using JobSearchService;
 using Ninject.Modules;
 
 namespace JobSearchService.Util

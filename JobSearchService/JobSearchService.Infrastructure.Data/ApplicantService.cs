@@ -1,13 +1,11 @@
-﻿using JobSearchService.Data;
-using JobSearchService.Models.Interfaces;
-using JobSearchService.Models.ViewModel;
+﻿using JobSearchService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Principal;
 
-namespace JobSearchService.Models.Services
+namespace JobSearchService
 {
     public class ApplicantService : IApplicant
     {
@@ -73,6 +71,38 @@ namespace JobSearchService.Models.Services
 
             _context.ApplicationUsers.Update(user);
             await _context.SaveChangesAsync();
+        }
+        public async Task<ApplicantJobView> Info(int id, int JobId)
+        {
+            var view = new ApplicantJobView();
+
+            var user = await GetCurrentUserAsync();
+
+            var applicant = await _context.Applicant.Include(a => a.ApplicationProfile).ThenInclude(l => l.Location).FirstOrDefaultAsync(a => a.Id == id);
+
+            var applicantJob = await _context.ApplicantJob.Include(j => j.Job).FirstOrDefaultAsync(a => a.ApplicantId == applicant.Id && a.JobId == JobId);
+
+            var applicantJobs = await _context.ApplicantJob.Where(j => j.JobId == JobId).ToListAsync();
+
+            view.Applicant = applicant;
+            view.ApplicantJob = applicantJob;
+            view.ApplicantJobs = applicantJobs;
+            view.ApplicantJobId = applicantJob.Id;
+
+            return view;
+        }
+        public async Task Create(int id)
+        {
+                var user = await GetCurrentUserAsync();
+
+                var jobApplication = new ApplicantJob
+                {
+                    ApplicantId = user.ApplicantId,
+                    JobId = id
+                };
+
+                _context.Add(jobApplication);
+                await _context.SaveChangesAsync();
         }
 
         public async Task<ApplicantJobView> Index()

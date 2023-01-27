@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobSearchService.Models
+namespace JobSearchService
 {
     public class Job
     {

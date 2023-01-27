@@ -1,10 +1,8 @@
-﻿using JobSearchService.Data;
-using JobSearchService.Models.Interfaces;
-using JobSearchService.Models.ViewModel;
+﻿using JobSearchService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobSearchService.Models.Services
+namespace JobSearchService
 {
     public class EmployerService : IEmployer
     {

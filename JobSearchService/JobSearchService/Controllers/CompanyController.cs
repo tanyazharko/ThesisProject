@@ -1,12 +1,10 @@
-﻿using JobSearchService.Data;
+﻿using JobSearchService;
 using JobSearchService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using JobSearchService.Models.Interfaces;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using JobSearchService.Models.ViewModel;
 
 namespace JobSearchService.Controllers
 {

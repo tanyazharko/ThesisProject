@@ -1,8 +1,6 @@
 ﻿using JobSearchService.Areas.Identity.Pages.Account;
-using JobSearchService.Data;
+using JobSearchService;
 using JobSearchService.Models;
-using JobSearchService.Models.Interfaces;
-using JobSearchService.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,7 +25,7 @@ namespace JobSearchService.Controllers
 
             return View(view);
         }
-        public async Task<ActionResult> Create()
+        public async Task<IActionResult> Create()
         {
             var view = await _job.Create();
 
@@ -35,7 +33,7 @@ namespace JobSearchService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(JobEmploymentTypeView view)
+        public async Task<IActionResult> Create(JobEmploymentTypeView view)
         {
             try
             {
@@ -49,13 +47,13 @@ namespace JobSearchService.Controllers
             }
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             return View(await _job.Delete(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int id, Job job)
+        public async Task<IActionResult> Delete(int id, Job job)
         {
             try
             {
@@ -96,7 +94,7 @@ namespace JobSearchService.Controllers
             }
         }
 
-        public async Task<ActionResult> Info(int id)
+        public async Task<IActionResult> Info(int id)
         {
             return View(await _job.Info(id));
         }

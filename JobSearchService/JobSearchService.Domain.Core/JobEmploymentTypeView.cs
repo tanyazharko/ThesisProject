@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace JobSearchService.Models.ViewModel
+namespace JobSearchService
 {
     public class JobEmploymentTypeView
     {
